@@ -1,12 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
+import 'package:testeuno/core/routes.dart';
 import 'package:testeuno/modules/auth/controllers/login_controller.dart';
-
-
-// Função global para converter HEX em cor
-Color hexToColor(String hexCode) {
-  return Color(int.parse(hexCode.substring(1, 7), radix: 16) + 0xFF000000);
-}
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -21,14 +16,19 @@ class _LoginPageState extends State<LoginPage> {
   @override
   void initState() {
     super.initState();
-    ctrl.addListener(() => setState(() {}));
+    ctrl.addListener(_atualizarEstado);
   }
 
   @override
   void dispose() {
-    ctrl.removeListener(() => setState(() {}));
+    ctrl.removeListener(_atualizarEstado);
     super.dispose();
   }
+
+  void _atualizarEstado() {
+    setState(() {});
+  }
+
 
 /*  void _salvarCadastro() {
     if (ctrl.txtNome.text.isEmpty || ctrl.txtEmail.text.isEmpty) {
@@ -54,18 +54,20 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         
-      appBar: AppBar(
-        title: Text('ProjetoUno - TechChef',
-        style: TextStyle(
-          color: hexToColor("#eef8ff"),
-          fontSize: 30,
-          fontWeight: FontWeight.bold,
-          )
+        appBar: AppBar(
+        
+          // Ícone de voltar
+          leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+            onPressed: () {
+            Navigator.pop(context);
+            },
+          ),
+
+          // Título da página
+          title: Text('Login',
+          ),
         ),
-        backgroundColor: hexToColor("#414288"),
-      ),
-      
-      backgroundColor: hexToColor("#BABBDE"),// Cor de fundo
       
       body: Padding(
         padding: EdgeInsets.all(30),
@@ -97,7 +99,7 @@ class _LoginPageState extends State<LoginPage> {
             SizedBox(height: 40),
             ElevatedButton(
               onPressed: () {
-                Navigator.pushNamed(context, 'dashboard');
+                Navigator.pushNamed(context, AppRoutes.dashboard);
               },
               child: Text('Entrar'),
             ),

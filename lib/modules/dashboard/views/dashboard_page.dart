@@ -1,99 +1,189 @@
 import 'package:flutter/material.dart';
-
-// Função global para converter HEX em cor
-Color hexToColor(String hexCode) {
-  return Color(int.parse(hexCode.substring(1, 7), radix: 16) + 0xFF000000);
-}
+import 'package:testeuno/core/routes.dart';
 
 class DashboardPage extends StatelessWidget {
   const DashboardPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text('ProjetoUno - TechChef',
-          style: TextStyle(
-            color: hexToColor("#eef8ff"),
-            fontSize: 30,
-            fontWeight: FontWeight.bold,
-            )
-          ),
-          backgroundColor: hexToColor("#414288"),
-        ),
-        
-        backgroundColor: hexToColor("#BABBDE"),// Cor de fundo
+    return Scaffold(
+      appBar: AppBar(
       
-        body: 
-          Center (child:
-            Column(
-              
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              
-              children: [
-                Icon(
-                  Icons.category_rounded, // Ícone do menu
-                    color: hexToColor("#EEF8FF"),
-                    size: 60,
-                ),
-                
-                SizedBox(height: 10), // Espaço entre o ícones
-                               
-                  Icon(
-                  Icons.category_rounded, // Ícone do menu
-                    color: hexToColor("#EEF8FF"),
-                    size: 60,
-                ),
-                
-                SizedBox(height: 10), // Espaço entre o ícones
-
-                                Icon(
-                  Icons.category_rounded, // Ícone do menu
-                    color: hexToColor("#EEF8FF"),
-                    size: 60,
-                ),
-                
-                SizedBox(height: 10), // Espaço entre o ícones              ],
-              ],
-            ),
-          ),
-
-        //rodapé      
-        bottomNavigationBar: BottomNavigationBar(
-          items: const <BottomNavigationBarItem>[
-            BottomNavigationBarItem(
-              icon: Icon(Icons.home_rounded),
-              label: 'Home',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.build_circle_rounded),
-              label: 'Painel Inicial',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.build_circle_rounded),
-              label: 'Configurações',
-            ),            
-          ],
-
-        selectedItemColor: Colors.blue, // Cor do item selecionado
-        unselectedItemColor: Colors.grey, // Cor do item não selecionado
-        showUnselectedLabels: true, // Exibe o label mesmo se o item não estiver selecionado
-        selectedFontSize: 14, // Tamanho da fonte do item selecionado
-        unselectedFontSize: 12, // Tamanho da fonte do item não selecionado
-
-          onTap: (int index) {
-            // Verifica qual item foi selecionado e navega para a respectiva rota
-            if (index == 0) {
-              Navigator.pushReplacementNamed(context, 'home'); // Rota 'home'
-            } else if (index == 1) {
-              Navigator.pushReplacementNamed(context, 'dashboard'); // Rota 'dashboard'
-            } else if (index == 2) {
-              Navigator.pushReplacementNamed(context, 'configuracoes'); // Rota 'configuracoes'
-            }
-          }
+        // Ícone de voltar
+        leading: IconButton(
+        icon: Icon(Icons.arrow_back),
+          onPressed: () {
+          Navigator.pop(context);
+          },
         ),
+
+        // Título da página
+        title: Text('DASHBOARD',
+        ),
+      ),
+      
+      body: 
+        Center (child:
+          Column(
+            
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            
+            children: [
+              Icon(
+                Icons.menu_book, // Ícone do menu
+                  size: 60,
+              ),
+
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [                  
+                ElevatedButton(
+                onPressed: () {
+                  Navigator.pushNamed(context, '');
+                },
+                  style: 
+                  ElevatedButton.styleFrom(
+                    padding: EdgeInsets.symmetric(horizontal: 30, vertical: 15),
+                  ),
+                  child: 
+                    Text('Resumo Geral',
+                      ),
+                  ),
+                ],
+              ),
+              
+              SizedBox(height: 10), // Espaço entre o ícones
+                              
+                Icon(
+                Icons.menu_book, // Ícone do menu
+                  size: 60,
+              ),
+
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [                  
+                ElevatedButton(
+                onPressed: () {
+                  Navigator.pushNamed(context, AppRoutes.menupage);
+                },
+                  style: 
+                  ElevatedButton.styleFrom(
+                  padding: EdgeInsets.symmetric(horizontal: 30, vertical: 15),
+                  ),
+                  child: 
+                    Text('Menus'
+                    ),
+                  ),
+                ],
+              ),
+
+              SizedBox(height: 10), // Espaço entre o ícones
+
+                Icon(
+                Icons.menu_book, // Ícone do menu
+                  size: 60,
+                ),
+
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [                  
+                ElevatedButton(
+                onPressed: () {
+                  Navigator.pushNamed(context, 'resumo');
+                },
+                  style: 
+                  ElevatedButton.styleFrom(
+                    padding: EdgeInsets.symmetric(horizontal: 30, vertical: 15),
+                  ),
+                  child: 
+                    Text('Estoque',
+                    ),
+                  ),
+                ],
+              ),
+
+              SizedBox(height: 10), // Espaço entre o ícones 
+                                
+                Icon(
+                  Icons.menu_book, // Ícone do menu
+                    size: 60,
+                ),
+
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [                  
+                ElevatedButton(
+                onPressed: () {
+                  Navigator.pushNamed(context, 'resumo');
+                },
+                  style: 
+                  ElevatedButton.styleFrom(
+                    padding: EdgeInsets.symmetric(horizontal: 30, vertical: 15),
+                  ),
+                  child: 
+                    Text('Controle Nutricional',
+                    ),
+                  ),
+                ],
+              ),
+
+              SizedBox(height: 10), // Espaço entre o ícones
+                                
+                Icon(
+                  Icons.menu_book, // Ícone do menu
+                    size: 60,
+                ),
+              
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [                  
+                ElevatedButton(
+                onPressed: () {
+                  Navigator.pushNamed(context, 'resumo');
+                },
+                  style: 
+                  ElevatedButton.styleFrom(
+                    padding: EdgeInsets.symmetric(horizontal: 30, vertical: 15),
+                  ),
+                  child: 
+                    Text('Compras',
+                    ),
+                  ),
+                ],
+              ),            
+            ],              
+          ),
+        ),
+
+      //rodapé      
+      bottomNavigationBar: BottomNavigationBar(
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home_rounded),
+            label: 'Home',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.dashboard_outlined),
+            label: 'Painel Inicial',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.settings_sharp),
+            label: 'Configurações',
+          ),           
+        ],
+
+        // Configurações do BottomNavigationBar
+        onTap: (int index) {
+          // Verifica qual item foi selecionado e navega para a respectiva rota
+          if (index == 0) {
+            Navigator.pushReplacementNamed(context, AppRoutes.home); // Rota 'home'
+          } else if (index == 1) {
+            Navigator.pushReplacementNamed(context, AppRoutes.dashboard); // Rota 'dashboard'
+          } else if (index == 2) {
+            Navigator.pushReplacementNamed(context, AppRoutes.configuracoes); // Rota 'configuracoes'
+          }
+        }
       ),
     );
   }
