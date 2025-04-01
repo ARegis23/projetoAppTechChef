@@ -1,17 +1,19 @@
 import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
-import 'package:testeuno/core/routes.dart';
-import 'package:testeuno/core/theme.dart';
 import 'package:get_it/get_it.dart';
-import 'package:testeuno/controllers/main_controllers.dart';
-import 'package:testeuno/modules/auth/controllers/Auth_controller.dart';
-import 'package:testeuno/modules/auth/controllers/login_controller.dart';
-import 'package:testeuno/modules/dashboard/controllers/dashboard_controllers.dart';
-import 'package:testeuno/modules/home/controllers/home_controllers.dart';
-import 'package:testeuno/modules/inventory/controllers/inventory_controllers.dart';
-import 'package:testeuno/modules/menus/controllers/menus_controllers.dart';
-import 'package:testeuno/modules/nutrition/controllers/nutrition_controllers.dart';
-import 'package:testeuno/modules/shopping/controllers/shopping_controllers.dart';
+
+import '../../../core/routes.dart';
+import '../../../core/theme.dart';
+import '../controllers/main_controllers.dart';
+import '../modules/auth/controllers/Auth_controller.dart';
+import '../modules/auth/controllers/login_controller.dart';
+import '../modules/dashboard/controllers/dashboard_controllers.dart';
+import '../modules/home/controllers/home_controllers.dart';
+import '../modules/inventory/controllers/inventory_controllers.dart';
+import '../modules/menus/controllers/menus_controllers.dart';
+import '../modules/nutrition/controllers/nutrition_controllers.dart';
+import '../modules/shopping/controllers/shopping_controllers.dart';
+import '../modules/auth/controllers/register_controller.dart';
 
 final g = GetIt.instance;
 
@@ -20,6 +22,7 @@ void main() {
   g.registerSingleton<MainControllers>(MainControllers());
   g.registerSingleton<AuthController>(AuthController());
   g.registerSingleton<LoginController>(LoginController());
+  g.registerSingleton<RegisterController>(RegisterController());
   g.registerSingleton<DashboardControllers>(DashboardControllers());
   g.registerSingleton<HomeControllers>(HomeControllers());
   g.registerSingleton<InventoryControllers>(InventoryControllers());

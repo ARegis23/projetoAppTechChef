@@ -1,83 +1,113 @@
-import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
+import 'package:intl/intl.dart'; // Para formatação da data
 
-void main() {
-  runApp(
-    DevicePreview(
-      builder: (context) => const RegisterPage(),
-    ),
-  );
-}
+import '../../../core/routes.dart';
+import '../controllers/register_controller.dart';
 
-class RegisterPage extends StatelessWidget {
+class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text('ProjetoUno - TechChef',
-          style: TextStyle(
-            color: hexToColor("#eef8ff"),
-            fontSize: 30,
-            fontWeight: FontWeight.bold,
-            )
-          ),
-          backgroundColor: hexToColor("#414288"),
-        ),
-        
-        backgroundColor: hexToColor("#BABBDE"),// Cor de fundo
-       
-        body: 
-          Center (child:
-            Column(
-              
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              
-              children: [
-                Icon(
-                  Icons.category_rounded, // Ícone do menu
-                    color: hexToColor("#EEF8FF"),
-                    size: 60,
-                ),
-                
-                SizedBox(height: 10), // Espaço entre o ícone e o texto
-               
-                FloatingActionButton(
-                onPressed: () {
-                  // Adicionar ação aqui
-                },
-                child: 
-                Text('Entrar',
-                  style: TextStyle(
-                    color: hexToColor("#EEF8FF"),
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                    ),
-                ),
-              ),
-              ],
-            ),
-          ),
+  State<RegisterPage> createState() => _RegisterPageState();
+}
 
-        //rodapé      
-        bottomNavigationBar: BottomNavigationBar(
-          items: const <BottomNavigationBarItem>[
-            BottomNavigationBarItem(
-              icon: Icon(Icons.build_circle_rounded), label: 'Configurações',
-            ),
-          ],
-          selectedItemColor: hexToColor("#F87788"),
-          onTap: (int index) {
-            // Adicionar ação aqui
-          },
+class _RegisterPageState extends State<RegisterPage> {
+  final ctrl = GetIt.I.get<RegisterController>();
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () => Navigator.pop(context),
+        ),
+        title: Text('Criar Conta'),
+      ),
+
+      body: Padding(
+        padding: EdgeInsets.all(30),
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              // Campos de texto para cadastro
+              _buildTextField(ctrl.txtNome, 'Nome', Icons.person),
+              _buildTextField(ctrl.txtEmail, 'E-mail', Icons.email),
+              _buildTextField(ctrl.txtSenha, 'Senha', Icons.lock, obscureText: true),
+              _buildTextField(ctrl.txtConfirmarSenha, 'Confirmar Senha', Icons.lock, obscureText: true),
+              _buildDatePicker(context),
+              _buildTextField(ctrl.txtTelefone, 'Telefone', Icons.phone),
+              _buildTextField(ctrl.txtEndereco, 'Endereço', Icons.home),
+              _buildTextField(ctrl.txtAltura, 'Altura (cm)', Icons.height),
+              _buildTextField(ctrl.txtPeso, 'Peso (kg)', Icons.fitness_center),
+              SizedBox(height: 15),
+              
+              // Campo para aceitar os termos de serviço
+              SwitchListTile(
+                title: Text('Aceito os termos de serviço'),
+                value: ctrl.aceitouTermos,
+                onChanged: (value) => setState(() => ctrl.atualizarAceitouTermos(value)),
+              ),
+              
+              // Botão de cadastro
+              SizedBox(height: 20),
+              ElevatedButton(
+                onPressed: ctrl.aceitouTermos ? _cadastrar : null,
+                child: Text('Cadastrar'),
+              ),
+              TextButton(
+                onPressed: () => Navigator.pushReplacementNamed(context, AppRoutes.login),
+                child: Text('Já tem conta? Faça login'),
+              ),
+            ],
+          ),
         ),
       ),
     );
   }
-  Color hexToColor(String hexCode) {
-    return new Color(int.parse(hexCode.substring(1, 7), radix: 16) + 0xFF000000);
+
+  // Método para construir os campos de texto com icones
+  Widget _buildTextField(TextEditingController controller, String label, IconData icon, {bool obscureText = false}) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 10),
+      child: TextField(
+        controller: controller,
+        obscureText: obscureText,
+        decoration: InputDecoration(
+          labelText: label,
+          border: OutlineInputBorder(),
+          prefixIcon: Icon(icon),
+        ),
+      ),
+    );
+  }
+
+  // Método para construir o campo de data de nascimento
+  Widget _buildDatePicker(BuildContext context) {
+    return GestureDetector(
+      onTap: () async {
+        DateTime? pickedDate = await showDatePicker(
+          context: context,
+          initialDate: DateTime.now(),
+          firstDate: DateTime(1900),
+          lastDate: DateTime.now(),
+        );
+        if (pickedDate != null) {
+          setState(() {
+            ctrl.txtDataNascimento.text = DateFormat('dd/MM/yyyy').format(pickedDate);
+          });
+        }
+      },
+      child: AbsorbPointer(
+        child: _buildTextField(ctrl.txtDataNascimento, 'Data de Nascimento', Icons.cake),
+      ),
+    );
+  }
+
+  void _cadastrar() {
+    // Implementar lógica de cadastro
+    Navigator.pushReplacementNamed(context, AppRoutes.login);
   }
 }

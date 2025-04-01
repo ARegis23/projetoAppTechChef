@@ -1,19 +1,23 @@
 import 'package:flutter/material.dart';
 
-// Função para converter um código HEX em uma cor do Flutter
+// 🟢 Função para converter código HEX em cor Flutter
 Color hexToColor(String hexCode) {
-  return Color(int.parse(hexCode.substring(1, 7), radix: 16) + 0xFF000000);
+  return Color(int.parse(hexCode.replaceAll("#", ""), radix: 16) + 0xFF000000);
 }
 
 // 🎨 Definições de Cores Globais
 class AppColors {
-  static final Color primary = hexToColor("#FF0000"); 
-  static final Color secondary = hexToColor("#0A0A0A") ;
-  static final Color background = hexToColor("#EEF8FF"); 
+  static final Color primary = hexToColor("#FF0000"); // vermelho
+  static final Color secondary = hexToColor("#0A0A0A"); // preto
+  static final Color background = hexToColor("#FFEFD8"); // Cor de fundo do aplicativo 
+  //PAPAYA WHIP 
+  static final Color card = hexToColor("#FFEFD8");// Cor de fundo dos cards
 
-  static final Color title = hexToColor("##61B73F"); // Títulos e textos claros
+  static final Color title = hexToColor("#61B73F"); // Títulos e textos claros 
+  //KELLY GREEN
   static final Color text = hexToColor("#0A0A0A"); // Texto padrão
   static final Color accent = hexToColor("#FFD17D"); // Amarelo para destaques
+  //JASMINE
 }
 
 // 🔤 Definições de Estilos de Texto Globais
@@ -21,7 +25,7 @@ class AppTextStyles {
   static final TextStyle title = TextStyle(
     fontSize: 24,
     fontWeight: FontWeight.bold,
-    color: hexToColor("#61B73F"),
+    color: AppColors.title,
   );
 
   static final TextStyle subtitle = TextStyle(
@@ -39,11 +43,11 @@ class AppTextStyles {
   static final TextStyle button = TextStyle(
     fontSize: 20,
     fontWeight: FontWeight.bold,
-    color: hexToColor("#61B73F"),
+    color: AppColors.title,
   );
 }
 
-// 🌈 Definições do Tema Global
+// 🌈 Definição do Tema Global
 class AppTheme {
   static ThemeData get lightTheme {
     return ThemeData(
@@ -54,23 +58,50 @@ class AppTheme {
       appBarTheme: AppBarTheme(
         backgroundColor: AppColors.primary,
         titleTextStyle: AppTextStyles.title,
-        iconTheme: IconThemeData(color: hexToColor("#61B73F")),
+        iconTheme: IconThemeData(color: AppColors.title),
       ),
 
-      // Estilização dos Botões
-      elevatedButtonTheme: ElevatedButtonThemeData(
-        style: ElevatedButton.styleFrom(
-          backgroundColor: AppColors.accent,
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-          textStyle: AppTextStyles.button,
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+      // 🔹 Caixa de Diálogo (AlertDialog)
+      dialogTheme: DialogTheme(
+        backgroundColor: hexToColor("#FFEFD8"),
+        titleTextStyle: TextStyle(
+          fontSize: 20,
+          fontWeight: FontWeight.bold,
+          color: AppColors.title,
+        ),
+        contentTextStyle: TextStyle(
+          fontSize: 16,
+          color: AppColors.text,
+        ),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(12),
         ),
       ),
 
-      // Estilização dos TextFields (Campos de Entrada)
+      // 🔹 Estilização dos Botões
+      elevatedButtonTheme: ElevatedButtonThemeData(
+        style: ElevatedButton.styleFrom(
+          backgroundColor: AppColors.accent, // Mesma cor dos botões principais
+          foregroundColor: AppColors.title, // Cor do texto do botão
+          textStyle: AppTextStyles.button, // Usa o mesmo estilo global dos botões
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(8),
+          ),
+        ),
+      ),
+
+      // 🔹 Estilização do TextButton (Ex: "Esqueci minha senha")
+      textButtonTheme: TextButtonThemeData(
+        style: TextButton.styleFrom(
+          foregroundColor: hexToColor("#61B73F"),
+          textStyle: TextStyle(fontSize: 16),
+        ),
+      ),
+
+      // 🔹 Estilização dos Campos de Entrada
       inputDecorationTheme: InputDecorationTheme(
         filled: true,
-        fillColor: Colors.white,
+        fillColor: hexToColor("#FFF8EB"),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
           borderSide: BorderSide(color: AppColors.primary),
@@ -81,71 +112,61 @@ class AppTheme {
         ),
       ),
 
-      // Estilização do BottomNavigationBar
+      // 🔹 Estilização do BottomNavigationBar
       bottomNavigationBarTheme: BottomNavigationBarThemeData(
         backgroundColor: AppColors.primary,
         selectedItemColor: AppColors.accent,
-        unselectedItemColor: hexToColor("#61B73F"),
+        unselectedItemColor: AppColors.title,
       ),
+
+      // 🔹 Estilização do Switch 
+      switchTheme: SwitchThemeData(
+        trackColor: WidgetStateProperty.resolveWith((states) {
+          if (states.contains(WidgetState.selected)) {
+            return hexToColor("#61B73F"); // Cor quando ativado
+          }
+          return hexToColor("#FFF8EB"); // Cor quando desativado
+        }),
+        thumbColor: WidgetStateProperty.resolveWith((states) {
+          if (states.contains(WidgetState.selected)) {
+            return AppColors.accent; // Cor do botão quando ativado
+          }
+          return hexToColor("#FFF8EB"); // Cor do botão quando desativado
+        }),
+      ),
+
+      // 🔹 Estilização do texto do SwitchListTile
+      listTileTheme: ListTileThemeData(
+        titleTextStyle: TextStyle(
+          fontSize: 16,
+          fontWeight: FontWeight.w500,
+          color: AppColors.title,
+        ),
+      ),
+
     );
   }
 }
 
-/*
-// Definição da classe AppTheme para armazenar as configurações de tema
-class AppTheme {
-  // Criando um tema claro (lightTheme)
-  static ThemeData lightTheme = ThemeData(
-    // Cor principal do aplicativo
-    primaryColor: hexToColor("#414288"),
-
-    // Cor de fundo geral do aplicativo
-    scaffoldBackgroundColor: hexToColor("#BABBDE"),
-
-    // Configurações da AppBar (barra superior do app)
-    appBarTheme: AppBarTheme(
-      backgroundColor: hexToColor("#414288"), // Cor de fundo da AppBar
-      titleTextStyle: TextStyle(
-        color: hexToColor("#eef8ff"), // Cor do texto da AppBar
-        fontSize: 24, // Tamanho da fonte
-        fontWeight: FontWeight.bold, // Deixando o texto em negrito
-      ),
-      iconTheme: IconThemeData(
-        color: hexToColor("#eef8ff"), // Cor dos ícones da AppBar (incluindo o botão de "back")
-      ),
-    ),
-
-    // Definições globais de texto para o aplicativo
-    textTheme: TextTheme(
-      bodyLarge: TextStyle(
-        color: hexToColor("#EEF8FF"), // Cor do texto principal
-        fontSize: 18, // Tamanho do texto
-      ),
-      titleLarge: TextStyle(
-        color: hexToColor("#EEF8FF"), // Cor do título principal
-        fontSize: 30, // Tamanho do título
-        fontWeight: FontWeight.bold, // Deixando o título em negrito
-      ),
-    ),
-
-    // Definições de tema para botões normais (botões simples)
-    buttonTheme: ButtonThemeData(
-      buttonColor: hexToColor("#414288"), // Cor de fundo dos botões
-      textTheme: ButtonTextTheme.primary, // Define a cor do texto dos botões
-    ),
-
-    // Definições para botões elevados (ElevatedButton)
-    elevatedButtonTheme: ElevatedButtonThemeData(
-      style: ElevatedButton.styleFrom(
-        backgroundColor: hexToColor("#414288"), // Cor de fundo do botão
-        foregroundColor: hexToColor("#EEF8FF"), // Cor do texto dentro do botão
-        padding: EdgeInsets.symmetric(horizontal: 30, vertical: 15), // Espaçamento interno do botão
-        textStyle: TextStyle(
-          fontSize: 18, // Tamanho da fonte do botão
-          fontWeight: FontWeight.bold, // Deixa o texto em negrito
-        ),
-      ),
-    ),
-  );
-}
-*/
+// 🟢 Definições de Cores Globais (ainda para serem definidas)
+  //cores ainda para serem definidas
+  /*
+  static final Color error = hexToColor("#FF0000"); // Cor de erro (vermelho)
+  static final Color success = hexToColor("#00FF00"); // Cor de sucesso (verde)
+  static final Color warning = hexToColor("#FFA500"); // Cor de aviso (laranja)
+  static final Color info = hexToColor("#0000FF"); // Cor de informação (azul)
+  static final Color disabled = hexToColor("#A9A9A9"); // Cor para elementos desativados (cinza)
+  static final Color shadow = hexToColor("#000000"); // Cor da sombra (preto)
+  static final Color lightShadow = hexToColor("#000000"); // Cor da sombra clara (preto)
+  static final Color darkShadow = hexToColor("#000000"); // Cor da sombra escura (preto)
+  static final Color light = hexToColor("#FFEFD8"); // Cor clara (PAPAYA WHIP)
+  static final Color dark = hexToColor("#0A0A0A"); // Cor escura (preto)
+  static final Color lightBackground = hexToColor("#FFEFD8"); // Cor de fundo clara (PAPAYA WHIP)
+  static final Color darkBackground = hexToColor("#0A0A0A"); // Cor de fundo escura (preto)
+  static final Color lightCard = hexToColor("#FFEFD8"); // Cor de fundo clara dos cards (PAPAYA WHIP)
+  static final Color darkCard = hexToColor("#0A0A0A"); // Cor de fundo escura dos cards (preto)
+  static final Color lightText = hexToColor("#FFEFD8"); // Cor do texto claro (PAPAYA WHIP)
+  static final Color darkText = hexToColor("#0A0A0A"); // Cor do texto escuro (preto)
+  static final Color lightTitle = hexToColor("#FFEFD8"); // Cor do título claro (PAPAYA WHIP)
+  static final Color darkTitle = hexToColor("#0A0A0A"); // Cor do título escuro (preto)
+  */

@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 
 class LoginController extends ChangeNotifier{
 
+  TextEditingController txtSenha = TextEditingController();
+
   final txtNome = TextEditingController();
   final txtEmail = TextEditingController();
 

@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 
-class AuthController extends ChangeNotifier {
+class RegisterController extends ChangeNotifier {
   final txtNome = TextEditingController();
   final txtEmail = TextEditingController();
   final txtSenha = TextEditingController();
   final txtConfirmarSenha = TextEditingController();
   final txtTelefone = TextEditingController();
   final txtDataNascimento = TextEditingController();
+  final txtEndereco = TextEditingController();
+  final txtAltura = TextEditingController();
+  final txtPeso = TextEditingController();
 
   bool _aceitouTermos = false;
 
