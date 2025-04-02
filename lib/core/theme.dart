@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+
 // 🟢 Função para converter código HEX em cor Flutter
 Color hexToColor(String hexCode) {
   return Color(int.parse(hexCode.replaceAll("#", ""), radix: 16) + 0xFF000000);
@@ -11,13 +12,18 @@ class AppColors {
   static final Color secondary = hexToColor("#0A0A0A"); // preto
   static final Color background = hexToColor("#FFEFD8"); // Cor de fundo do aplicativo 
   //PAPAYA WHIP 
-  static final Color card = hexToColor("#FFEFD8");// Cor de fundo dos cards
+  static final Color card = hexToColor("#FFD17D");// Cor de fundo dos cards
 
   static final Color title = hexToColor("#61B73F"); // Títulos e textos claros 
   //KELLY GREEN
   static final Color text = hexToColor("#0A0A0A"); // Texto padrão
   static final Color accent = hexToColor("#FFD17D"); // Amarelo para destaques
   //JASMINE
+   
+  static final Color dialogBackground = hexToColor("#FFEFD8"); // Cor de fundo do AlertDialog
+  static final Color success = hexToColor("#61B73F"); // Verde para sucessos
+  static final Color inputBackground = hexToColor("#FFF8EB"); // Cor de fundo dos campos de entrada
+
 }
 
 // 🔤 Definições de Estilos de Texto Globais
@@ -54,25 +60,40 @@ class AppTheme {
       primaryColor: AppColors.primary,
       scaffoldBackgroundColor: AppColors.background,
 
-      // Estilização da AppBar
+      // 🔹 Estilização da AppBar
       appBarTheme: AppBarTheme(
         backgroundColor: AppColors.primary,
         titleTextStyle: AppTextStyles.title,
         iconTheme: IconThemeData(color: AppColors.title),
       ),
 
+      // 🔹 Definição do TextTheme
+      textTheme: TextTheme(
+        titleLarge: AppTextStyles.title,
+        /*bodyLarge: TextStyle(
+          fontSize: 18,
+          fontWeight: FontWeight.bold,
+          color: AppColors.title, 
+        ),*/
+        bodyMedium: TextStyle(
+          fontSize: 16,
+          fontWeight: FontWeight.bold,
+          color: AppColors.title, 
+        ),
+        /*bodySmall: TextStyle(
+          fontSize: 14,
+          fontWeight: FontWeight.bold,
+          color: AppColors.title, 
+        ),*/
+
+        labelLarge: AppTextStyles.button,
+      ),
+
       // 🔹 Caixa de Diálogo (AlertDialog)
       dialogTheme: DialogTheme(
-        backgroundColor: hexToColor("#FFEFD8"),
-        titleTextStyle: TextStyle(
-          fontSize: 20,
-          fontWeight: FontWeight.bold,
-          color: AppColors.title,
-        ),
-        contentTextStyle: TextStyle(
-          fontSize: 16,
-          color: AppColors.text,
-        ),
+        backgroundColor: AppColors.dialogBackground,
+        titleTextStyle: AppTextStyles.title,
+        contentTextStyle: AppTextStyles.body,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(12),
         ),
@@ -81,27 +102,27 @@ class AppTheme {
       // 🔹 Estilização dos Botões
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
-          backgroundColor: AppColors.accent, // Mesma cor dos botões principais
-          foregroundColor: AppColors.title, // Cor do texto do botão
-          textStyle: AppTextStyles.button, // Usa o mesmo estilo global dos botões
+          backgroundColor: AppColors.accent,
+          foregroundColor: AppColors.title,
+          textStyle: AppTextStyles.button,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(8),
           ),
         ),
       ),
 
-      // 🔹 Estilização do TextButton (Ex: "Esqueci minha senha")
+      // 🔹 Estilização do TextButton
       textButtonTheme: TextButtonThemeData(
         style: TextButton.styleFrom(
-          foregroundColor: hexToColor("#61B73F"),
-          textStyle: TextStyle(fontSize: 16),
+          foregroundColor: AppColors.success,
+          textStyle: AppTextStyles.body,
         ),
       ),
 
       // 🔹 Estilização dos Campos de Entrada
       inputDecorationTheme: InputDecorationTheme(
         filled: true,
-        fillColor: hexToColor("#FFF8EB"),
+        fillColor: AppColors.inputBackground,
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
           borderSide: BorderSide(color: AppColors.primary),
@@ -119,29 +140,38 @@ class AppTheme {
         unselectedItemColor: AppColors.title,
       ),
 
-      // 🔹 Estilização do Switch 
+      // 🔹 Estilização do Switch
       switchTheme: SwitchThemeData(
-        trackColor: WidgetStateProperty.resolveWith((states) {
-          if (states.contains(WidgetState.selected)) {
-            return hexToColor("#61B73F"); // Cor quando ativado
-          }
-          return hexToColor("#FFF8EB"); // Cor quando desativado
+        trackColor: MaterialStateProperty.resolveWith((states) {
+          return states.contains(MaterialState.selected)
+              ? AppColors.success
+              : AppColors.inputBackground;
         }),
-        thumbColor: WidgetStateProperty.resolveWith((states) {
-          if (states.contains(WidgetState.selected)) {
-            return AppColors.accent; // Cor do botão quando ativado
-          }
-          return hexToColor("#FFF8EB"); // Cor do botão quando desativado
+        thumbColor: MaterialStateProperty.resolveWith((states) {
+          return states.contains(MaterialState.selected)
+              ? AppColors.accent
+              : AppColors.inputBackground;
         }),
       ),
 
-      // 🔹 Estilização do texto do SwitchListTile
+      // 🔹 Estilização do ListTile
       listTileTheme: ListTileThemeData(
-        titleTextStyle: TextStyle(
-          fontSize: 16,
-          fontWeight: FontWeight.w500,
-          color: AppColors.title,
+        titleTextStyle: AppTextStyles.body,
+      ),
+
+      // 🔹 Estilização do Card
+      cardTheme: CardTheme(
+        color: AppColors.card, // Cor de fundo do card
+        elevation: 4, // Sombra
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(12), // Borda arredondada
         ),
+      ),
+
+      // 🔹 Estilização do IconButton
+        iconTheme: IconThemeData(
+        color: AppColors.primary, // Define a cor padrão dos ícones
+        size: 24, // Tamanho padrão dos ícones
       ),
 
     );

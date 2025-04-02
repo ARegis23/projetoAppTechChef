@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:testeuno/core/theme.dart';
 
 import '../../../core/routes.dart';
+//import '../../../core/theme.dart';
 
 class DashboardPage extends StatelessWidget {
   const DashboardPage({super.key});
@@ -19,145 +21,69 @@ class DashboardPage extends StatelessWidget {
         ),
 
         // Título da página
-        title: Text('DASHBOARD',
+        title: Text('DashBoard',
         ),
       ),
       
-      body: 
-        Center (child:
-          Column(
-            
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            
-            children: [
-              Icon(
-                Icons.menu_book, // Ícone do menu
-                  size: 60,
-              ),
-
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [                  
-                ElevatedButton(
-                onPressed: () {
-                  Navigator.pushNamed(context, '');
-                },
-                  style: 
-                  ElevatedButton.styleFrom(
-                    padding: EdgeInsets.symmetric(horizontal: 30, vertical: 15),
-                  ),
-                  child: 
-                    Text('Resumo Geral',
-                      ),
-                  ),
-                ],
-              ),
-              
-              SizedBox(height: 10), // Espaço entre o ícones
-                              
-                Icon(
-                Icons.menu_book, // Ícone do menu
-                  size: 60,
-              ),
-
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [                  
-                ElevatedButton(
-                onPressed: () {
-                  Navigator.pushNamed(context, AppRoutes.menupage);
-                },
-                  style: 
-                  ElevatedButton.styleFrom(
-                  padding: EdgeInsets.symmetric(horizontal: 30, vertical: 15),
-                  ),
-                  child: 
-                    Text('Menus'
-                    ),
-                  ),
-                ],
-              ),
-
-              SizedBox(height: 10), // Espaço entre o ícones
-
-                Icon(
-                Icons.menu_book, // Ícone do menu
-                  size: 60,
+      
+      body: Center(
+        child: SizedBox(
+          // Define a altura do Card
+          height: MediaQuery.of(context).size.height * 0.7, 
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: GridView.count(
+              crossAxisCount: 2,
+              crossAxisSpacing: 10,
+              mainAxisSpacing: 10,
+              shrinkWrap: true, // Faz com que o GridView ocupe apenas o espaço necessário
+              physics: NeverScrollableScrollPhysics(), // Impede a rolagem do GridView
+              children: [
+                _buildDashboardCard(
+                  context,
+                  title: 'Resumo Geral',
+                  icon: Icons.menu_book,
+                  route: '',
                 ),
-
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [                  
-                ElevatedButton(
-                onPressed: () {
-                  Navigator.pushNamed(context, 'resumo');
-                },
-                  style: 
-                  ElevatedButton.styleFrom(
-                    padding: EdgeInsets.symmetric(horizontal: 30, vertical: 15),
-                  ),
-                  child: 
-                    Text('Estoque',
-                    ),
-                  ),
-                ],
-              ),
-
-              SizedBox(height: 10), // Espaço entre o ícones 
-                                
-                Icon(
-                  Icons.menu_book, // Ícone do menu
-                    size: 60,
+                _buildDashboardCard(
+                  context,
+                  title: 'Menus',
+                  icon: Icons.restaurant_menu,
+                  route: AppRoutes.menupage,
                 ),
-
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [                  
-                ElevatedButton(
-                onPressed: () {
-                  Navigator.pushNamed(context, 'resumo');
-                },
-                  style: 
-                  ElevatedButton.styleFrom(
-                    padding: EdgeInsets.symmetric(horizontal: 30, vertical: 15),
-                  ),
-                  child: 
-                    Text('Controle Nutricional',
-                    ),
-                  ),
-                ],
-              ),
-
-              SizedBox(height: 10), // Espaço entre o ícones
-                                
-                Icon(
-                  Icons.menu_book, // Ícone do menu
-                    size: 60,
+                _buildDashboardCard(
+                  context,
+                  title: 'Estoque',
+                  icon: Icons.inventory,
+                  route: 'resumo',
                 ),
-              
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [                  
-                ElevatedButton(
-                onPressed: () {
-                  Navigator.pushNamed(context, 'resumo');
-                },
-                  style: 
-                  ElevatedButton.styleFrom(
-                    padding: EdgeInsets.symmetric(horizontal: 30, vertical: 15),
-                  ),
-                  child: 
-                    Text('Compras',
-                    ),
-                  ),
-                ],
-              ),            
-            ],              
+                _buildDashboardCard(
+                  context,
+                  title: 'Controle Nutricional',
+                  icon: Icons.health_and_safety,
+                  route: 'resumo',
+                ),
+                _buildDashboardCard(
+                  context,
+                  title: 'Compras',
+                  icon: Icons.shopping_cart,
+                  route: 'resumo',
+                ),
+                _buildDashboardCard(
+                  context,
+                  title: 'Família',
+                  icon: Icons.family_restroom,
+                  route: AppRoutes.registerFamily,
+                ),
+              ],
+            ),
           ),
         ),
+      ),
 
-      //rodapé      
+
+
+      // Rodape
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
@@ -171,24 +97,77 @@ class DashboardPage extends StatelessWidget {
           BottomNavigationBarItem(
             icon: Icon(Icons.settings_sharp),
             label: 'Configurações',
-          ),           
+          ),
         ],
-
-        // Configurações do BottomNavigationBar
         onTap: (int index) {
-          // Verifica qual item foi selecionado e navega para a respectiva rota
           if (index == 0) {
-            Navigator.pushReplacementNamed(context, AppRoutes.home); // Rota 'home'
+            Navigator.pushReplacementNamed(context, AppRoutes.home);
           } else if (index == 1) {
-            Navigator.pushReplacementNamed(context, AppRoutes.dashboard); // Rota 'dashboard'
+            Navigator.pushReplacementNamed(context, '');
           } else if (index == 2) {
-            Navigator.pushReplacementNamed(context, AppRoutes.configuracoes); // Rota 'configuracoes'
+            Navigator.pushReplacementNamed(context, AppRoutes.configuracoes);
           }
-        }
+        },
+      ),
+    );
+  }
+
+  Widget _buildDashboardCard(BuildContext context, {required String title, required IconData icon, required String route}) {
+    return MouseRegion(
+      cursor: SystemMouseCursors.click,
+      child: GestureDetector(
+        onTap: () {
+          Navigator.pushNamed(context, route);
+        },
+        child: StatefulBuilder(
+          builder: (context, setState) {
+            return MouseRegion(
+              onEnter: (_) => setState(() {}),
+              onExit: (_) => setState(() {}),
+              child: AnimatedContainer(
+                duration: Duration(milliseconds: 200),
+                curve: Curves.easeInOut,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(12),
+                  color: Theme.of(context).cardColor,
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black26,
+                      blurRadius: 6,
+                      offset: Offset(2, 2),
+                    ),
+                  ],
+                ),
+                child: Card(
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                  elevation: 4,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(icon, color: Theme.of(context).iconTheme.color, size: 40),
+                      SizedBox(height: 10),
+                      Text(title, 
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                          color: AppColors.primary,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            );
+          },
+        ),
       ),
     );
   }
 }
+
+
+
 
 /*
 produteview.dart

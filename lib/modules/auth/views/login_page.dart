@@ -179,7 +179,9 @@ class _LoginPageState extends State<LoginPage> {
             SizedBox(height: 15),
             if (primeiroAcesso)
               SwitchListTile(
-                title: Text('Aceitar os termos do serviço'),
+                title: Text('Aceitar os termos do serviço',
+                  style: Theme.of(context).textTheme.bodyMedium,
+                ),
                 value: ctrl.aceito,
                 onChanged: (value) {
                   ctrl.atualizarAceito(value);

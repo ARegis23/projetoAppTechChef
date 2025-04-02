@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../family/views/register_family_page.dart';
 import '../modules/auth/views/forgot_password_page.dart';
 import '../modules/auth/views/login_page.dart';
 import '../modules/auth/views/register_page.dart';
@@ -18,6 +19,7 @@ class AppRoutes {
   static const String menupage = '/menupage';
   static const String register = '/register';
   static const String forgotpassword = '/forgotpassword';
+  static const String registerFamily = '/registerFamily';
 
   static Map<String, WidgetBuilder> routes = {
     home: (context) => HomePage(),
@@ -26,7 +28,8 @@ class AppRoutes {
     configuracoes: (context) => const SettingsPage(),
     sobre: (context) => const AboutPage(),
     menupage: (context) => const MenusPage(),
-    register: (context) => const RegisterPage(), 
+    register: (context) => const RegisterPage(),
+    registerFamily: (context) => const RegisterFamily(),
     forgotpassword: (context) => const ForgotPasswordPage(), // no momento esta sendo usado uma caixa de dialogo
   };
 }

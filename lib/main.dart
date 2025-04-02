@@ -14,6 +14,7 @@ import '../modules/menus/controllers/menus_controllers.dart';
 import '../modules/nutrition/controllers/nutrition_controllers.dart';
 import '../modules/shopping/controllers/shopping_controllers.dart';
 import '../modules/auth/controllers/register_controller.dart';
+import '../family/controllers/register_family_controller.dart';
 
 final g = GetIt.instance;
 
@@ -29,6 +30,7 @@ void main() {
   g.registerSingleton<MenusControllers>(MenusControllers());
   g.registerSingleton<NutritionControllers>(NutritionControllers());
   g.registerSingleton<ShoppingControllers>(ShoppingControllers());
+  g.registerSingleton<RegisterFamilyController>(RegisterFamilyController());
 
   //Executar o aplicativo
   runApp(
