@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:testeuno/core/routes.dart';
+
+import '../../../widgets/dashboard_card.dart';
+import '../../../core/routes.dart';
 
 class MenusPage extends StatelessWidget {
   const MenusPage({super.key});
@@ -18,103 +20,48 @@ class MenusPage extends StatelessWidget {
         ),
 
         // Título da página
-        title: Text('MENUS',
+        title: Text('Cardápios',
         ),
       ),
-
-      body: 
-        Center (child:
-          Column(
-            
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            
-            children: [
-              ElevatedButton(
-              onPressed: () {
-                Navigator.pushNamed(context, '');
-              },
-                style: ElevatedButton.styleFrom(
-                padding: EdgeInsets.symmetric(horizontal: 30, vertical: 15),
-              ),
-              child: 
-                Text('Café da Manhã',
-                  ),
-              ),
-            
-              SizedBox(height: 10),
-
-              ElevatedButton(
-              onPressed: () {
-                Navigator.pushNamed(context, '');
-              },
-                style: ElevatedButton.styleFrom(
-                padding: EdgeInsets.symmetric(horizontal: 30, vertical: 15),
-              ),
-              child: 
-                Text('Lanches',
-                  ),
-              ),              
-
-              SizedBox(height: 10),
-
-              ElevatedButton(
-              onPressed: () {
-                Navigator.pushNamed(context, '');
-              },
-                style: ElevatedButton.styleFrom(
-                padding: EdgeInsets.symmetric(horizontal: 30, vertical: 15),
-              ),
-              child: 
-                Text('Almoço',
-                  ),
-              ),              
-
-              SizedBox(height: 10),
-
-              ElevatedButton(
-              onPressed: () {
-                Navigator.pushNamed(context, '');
-              },
-                style: ElevatedButton.styleFrom(
-                padding: EdgeInsets.symmetric(horizontal: 30, vertical: 15),
-              ),
-              child: 
-                Text('Jantar',
-                  ),
-              ),
-            ],
+      
+      body: Center(
+        child: SizedBox(
+          height: MediaQuery.of(context).size.height * 0.5,
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: GridView.count(
+              crossAxisCount: 2,
+              crossAxisSpacing: 10,
+              mainAxisSpacing: 10,
+              shrinkWrap: true,
+              physics: BouncingScrollPhysics(),
+              children: [
+                DashboardCard(title: 'Café da Manhã', icon: Icons.free_breakfast, route: AppRoutes.breakfastPage),
+                DashboardCard(title: 'Lanches', icon: Icons.fastfood, route: AppRoutes.snacksPage),
+                DashboardCard(title: 'Almoço', icon: Icons.lunch_dining, route: AppRoutes.lunchPage),
+                DashboardCard(title: 'Jantar', icon: Icons.dinner_dining, route: AppRoutes.dinnerPage),
+              ],
+            ),
           ),
         ),
-
-      //rodapé      
+      ),
+      
       bottomNavigationBar: BottomNavigationBar(
+        currentIndex: 1, // Define que o item "Painel Inicial" está selecionado
         items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home_rounded),
-            label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.dashboard_outlined),
-            label: 'Painel Inicial',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.settings_sharp),
-            label: 'Configurações',
-          ),           
+          BottomNavigationBarItem(icon: Icon(Icons.home_rounded), label: 'Home'),
+          BottomNavigationBarItem(icon: Icon(Icons.dashboard_outlined), label: 'Painel Inicial'),
+          BottomNavigationBarItem(icon: Icon(Icons.settings_sharp), label: 'Configurações'),
         ],
-
-        // Configurações do BottomNavigationBar
         onTap: (int index) {
-          // Verifica qual item foi selecionado e navega para a respectiva rota
           if (index == 0) {
-            Navigator.pushReplacementNamed(context, AppRoutes.home); // Rota 'home'
+            Navigator.pushReplacementNamed(context, AppRoutes.home);
           } else if (index == 1) {
-            Navigator.pushReplacementNamed(context, AppRoutes.dashboard); // Rota 'dashboard'
+            Navigator.pushReplacementNamed(context, AppRoutes.dashboard);
           } else if (index == 2) {
-            Navigator.pushReplacementNamed(context, AppRoutes.configuracoes); // Rota 'configuracoes'
+            Navigator.pushReplacementNamed(context, AppRoutes.configuracoes);
           }
-        }
+        },
       ),
     );
   }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:testeuno/core/routes.dart';
+
+import '../../../core/routes.dart';
 
 class ForgotPasswordPage extends StatelessWidget {
   const ForgotPasswordPage({super.key});

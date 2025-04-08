@@ -175,7 +175,7 @@ class AboutPage extends StatelessWidget {
             // Gap entre autores e versao
             SizedBox(height: 20),
 
-            // Informações do aplicativo
+            // Informações de versao e direitos autorais
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -183,7 +183,7 @@ class AboutPage extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     //versao conforme subir no github para acompanhar evolucao
-                    Text('Versão 1.0.4'),
+                    Text('Versão 1.0.6'),
                     SizedBox(height: 5),
                     Text('© 2025 - Todos os direitos reservados'),
                   ],
@@ -210,7 +210,7 @@ class AboutPage extends StatelessWidget {
           if (index == 0) {
             Navigator.pushNamed(context, AppRoutes.home); // Rota 'sobre'
           } else if (index == 1) {
-            Navigator.pushNamed(context, ''); // Rota 'mais informações'
+            Navigator.pushNamed(context, AppRoutes.infos); // Rota 'mais informações'
           }
         },
       ),

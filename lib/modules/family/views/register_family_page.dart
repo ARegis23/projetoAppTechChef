@@ -2,28 +2,35 @@ import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:intl/intl.dart'; // Para formatação da data
 
-import '../../../core/routes.dart';
-import '../controllers/register_controller.dart';
+import '../../../../core/routes.dart';
+import '../controllers/register_family_controller.dart';
 
-class RegisterPage extends StatefulWidget {
-  const RegisterPage({super.key});
+class RegisterFamily extends StatefulWidget {
+  const RegisterFamily({super.key});
 
   @override
-  State<RegisterPage> createState() => _RegisterPageState();
+  State<RegisterFamily> createState() => _RegisterFamilyState();
 }
 
-class _RegisterPageState extends State<RegisterPage> {
-  final ctrl = GetIt.I.get<RegisterController>();
+class _RegisterFamilyState extends State<RegisterFamily> {
+  final ctrl = GetIt.I.get<RegisterFamilyController>();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+
+        // Ícone de voltar
         leading: IconButton(
-          icon: Icon(Icons.arrow_back),
-          onPressed: () => Navigator.pop(context),
+        icon: Icon(Icons.arrow_back),
+          onPressed: () {
+          Navigator.pop(context);
+          },
         ),
-        title: Text('Criar Conta'),
+
+        // Título da página
+        title: Text('Novo Membro da Família',
+        ),
       ),
 
       body: Padding(
@@ -58,10 +65,6 @@ class _RegisterPageState extends State<RegisterPage> {
               ElevatedButton(
                 onPressed: ctrl.aceitouTermos ? _cadastrar : null,
                 child: Text('Cadastrar'),
-              ),
-              TextButton(
-                onPressed: () => Navigator.pushReplacementNamed(context, AppRoutes.login),
-                child: Text('Já tem conta? Faça login'),
               ),
             ],
           ),
@@ -110,6 +113,6 @@ class _RegisterPageState extends State<RegisterPage> {
 
   void _cadastrar() {
     // Implementar lógica de cadastro
-    Navigator.pushReplacementNamed(context, AppRoutes.login);
+    Navigator.pushReplacementNamed(context, AppRoutes.dashboard);
   }
 }

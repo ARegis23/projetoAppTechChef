@@ -47,7 +47,7 @@ class _LoginPageState extends State<LoginPage> {
             mainAxisSize: MainAxisSize.min,
             children: [
               Text(
-                "Digite seu e-mail para receber um link de redefinição.",
+                "Digite seu e-mail cadastrado para receber um link de redefinição.",
               ),
               SizedBox(height: 10),
               TextField(
@@ -216,7 +216,7 @@ class _LoginPageState extends State<LoginPage> {
           if (index == 0) {
             Navigator.pushNamed(context, AppRoutes.sobre); // Rota 'sobre'
           } else if (index == 1) {
-            Navigator.pushNamed(context, ''); // Rota 'mais informações'
+            Navigator.pushNamed(context, AppRoutes.infos); // Rota 'mais informações'
           }
         },
       ),

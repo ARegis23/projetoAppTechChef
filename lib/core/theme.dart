@@ -70,6 +70,7 @@ class AppTheme {
       // 🔹 Definição do TextTheme
       textTheme: TextTheme(
         titleLarge: AppTextStyles.title,
+        
         /*bodyLarge: TextStyle(
           fontSize: 18,
           fontWeight: FontWeight.bold,
@@ -80,11 +81,11 @@ class AppTheme {
           fontWeight: FontWeight.bold,
           color: AppColors.title, 
         ),
-        /*bodySmall: TextStyle(
+        bodySmall: TextStyle(
           fontSize: 14,
           fontWeight: FontWeight.bold,
           color: AppColors.title, 
-        ),*/
+        ),
 
         labelLarge: AppTextStyles.button,
       ),

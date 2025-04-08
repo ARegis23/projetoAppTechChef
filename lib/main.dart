@@ -2,6 +2,7 @@ import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 
+import '../modules/inventory/controllers/inventory_list_controllers.dart';
 import '../../../core/routes.dart';
 import '../../../core/theme.dart';
 import '../controllers/main_controllers.dart';
@@ -14,7 +15,7 @@ import '../modules/menus/controllers/menus_controllers.dart';
 import '../modules/nutrition/controllers/nutrition_controllers.dart';
 import '../modules/shopping/controllers/shopping_controllers.dart';
 import '../modules/auth/controllers/register_controller.dart';
-import '../family/controllers/register_family_controller.dart';
+import '../modules/family/controllers/register_family_controller.dart';
 
 final g = GetIt.instance;
 
@@ -27,6 +28,7 @@ void main() {
   g.registerSingleton<DashboardControllers>(DashboardControllers());
   g.registerSingleton<HomeControllers>(HomeControllers());
   g.registerSingleton<InventoryControllers>(InventoryControllers());
+  g.registerSingleton<InventoryListControllers>(InventoryListControllers());
   g.registerSingleton<MenusControllers>(MenusControllers());
   g.registerSingleton<NutritionControllers>(NutritionControllers());
   g.registerSingleton<ShoppingControllers>(ShoppingControllers());

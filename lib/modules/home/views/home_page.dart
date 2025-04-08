@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:testeuno/core/routes.dart';
+
+import '../../../core/routes.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -75,7 +76,7 @@ class HomePage extends StatelessWidget {
           if (index == 0) {
             Navigator.pushNamed(context, AppRoutes.sobre); // Rota 'sobre'
           } else if (index == 1) {
-            Navigator.pushNamed(context, ''); // Rota 'mais informações'
+            Navigator.pushNamed(context, AppRoutes.infos); // Rota 'mais informações'
           }
         },
       ),
